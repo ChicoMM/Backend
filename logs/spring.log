@@ -1,0 +1,30 @@
+2024-10-21T20:52:38.882-03:00  INFO 5948 --- [authserver] [main] b.p.authserver.AuthserverApplicationKt   : Starting AuthserverApplicationKt using Java 21.0.4 with PID 5948 (C:\Users\Rique\Downloads\authserver_06_final (2)\authserver_06_final\build\classes\kotlin\main started by usuario in C:\Users\Rique\Downloads\authserver_06_final (2)\authserver_06_final)
+2024-10-21T20:52:38.903-03:00  INFO 5948 --- [authserver] [main] b.p.authserver.AuthserverApplicationKt   : No active profile set, falling back to 1 default profile: "default"
+2024-10-21T20:52:41.008-03:00  INFO 5948 --- [authserver] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-21T20:52:41.125-03:00  INFO 5948 --- [authserver] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100 ms. Found 3 JPA repository interfaces.
+2024-10-21T20:52:42.057-03:00  INFO 5948 --- [authserver] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-10-21T20:52:42.082-03:00  INFO 5948 --- [authserver] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-10-21T20:52:42.083-03:00  INFO 5948 --- [authserver] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-10-21T20:52:42.205-03:00  INFO 5948 --- [authserver] [main] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring embedded WebApplicationContext
+2024-10-21T20:52:42.206-03:00  INFO 5948 --- [authserver] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3122 ms
+2024-10-21T20:52:42.249-03:00  INFO 5948 --- [authserver] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-10-21T20:52:42.667-03:00  INFO 5948 --- [authserver] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:db user=SA
+2024-10-21T20:52:42.671-03:00  INFO 5948 --- [authserver] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-10-21T20:52:42.686-03:00  INFO 5948 --- [authserver] [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:db'
+2024-10-21T20:52:42.949-03:00  INFO 5948 --- [authserver] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-21T20:52:43.111-03:00  INFO 5948 --- [authserver] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-10-21T20:52:43.212-03:00  INFO 5948 --- [authserver] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-10-21T20:52:43.996-03:00  INFO 5948 --- [authserver] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-21T20:52:46.021-03:00  INFO 5948 --- [authserver] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-21T20:52:46.141-03:00  INFO 5948 --- [authserver] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-21T20:52:47.189-03:00  INFO 5948 --- [authserver] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-10-21T20:52:48.151-03:00  WARN 5948 --- [authserver] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-21T20:52:48.949-03:00  INFO 5948 --- [authserver] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/api'
+2024-10-21T20:52:49.328-03:00  INFO 5948 --- [authserver] [main] br.pucpr.authserver.Bootstrapper         : ADMIN and USER roles created!
+2024-10-21T20:52:49.372-03:00  INFO 5948 --- [authserver] [main] br.pucpr.authserver.Bootstrapper         : ADMIN user created!
+2024-10-21T20:52:49.377-03:00  INFO 5948 --- [authserver] [main] b.p.authserver.AuthserverApplicationKt   : Started AuthserverApplicationKt in 11.372 seconds (process running for 16.837)
+2024-10-21T20:53:02.332-03:00  INFO 5948 --- [authserver] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/api]    : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-21T20:53:02.333-03:00  INFO 5948 --- [authserver] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-10-21T20:53:02.336-03:00  INFO 5948 --- [authserver] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-10-21T20:53:05.275-03:00  INFO 5948 --- [authserver] [http-nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1874 ms
+2024-10-21T21:39:14.241-03:00  WARN 5948 --- [authserver] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=28m1s191ms468µs900ns).
