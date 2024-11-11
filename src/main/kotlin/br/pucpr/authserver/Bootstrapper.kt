@@ -24,7 +24,10 @@ class Bootstrapper(
                     name="USER",
                     description = "Premium User")
                 )
-                log.info("ADMIN and USER roles created!")
+                roleRepository.save(Role(
+                    name="DOCTOR",
+                    description = "Doctor User")
+                )
             }
         if (userRepository.findByRole("ADMIN").isEmpty()) {
             val admin = User(
