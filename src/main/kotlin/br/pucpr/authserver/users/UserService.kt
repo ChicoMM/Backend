@@ -3,6 +3,7 @@ package br.pucpr.authserver.users
 import br.pucpr.authserver.errors.BadRequestException
 import br.pucpr.authserver.errors.NotFoundException
 import br.pucpr.authserver.roles.RoleRepository
+import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -18,6 +19,7 @@ class UserService(
         
         if (repository.findByEmail(user.email) != null)
             throw BadRequestException("Usuário com email ${user.email} já existe!")
+        log.info("Usuário cadastrado. id={} name={}", user.id, user.name)
         return repository.save(user)
     }
 
@@ -34,8 +36,14 @@ class UserService(
 
     fun findByIdOrNull(id: Long) = repository.findByIdOrNull(id)
 
-    fun delete(id: Long) = repository.deleteById(id)
-
+    fun delete(id: Long) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id)
+            log.info("Usuário deletado. id={}", id)
+        } else {
+            log.warn("Não foi possível deletar devido ao ID inválido. id={}", id)
+        }
+    }
     fun update(id: Long, name: String): User? {
         val user = repository.findByIdOrNull(id)
             ?: throw NotFoundException("Usuário ${id} não encontrado!")
@@ -53,9 +61,12 @@ class UserService(
 
         val role = roleRepository.findByName(roleName)
             ?: throw BadRequestException("Invalid role name!")
-
         user.roles.add(role)
         repository.save(user)
         return true
+    }
+
+    companion object {
+        val log = LoggerFactory.getLogger(UserService::class.java)
     }
 }
