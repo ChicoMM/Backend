@@ -14,8 +14,10 @@ import org.springframework.stereotype.Repository
 
 @Service
 class AppointmentService(
-    val repository: AppointmentRepository
+    val repository: AppointmentRepository,
+
 ) {
+    val role = "ADMIN"
     companion object {
         private val log = LoggerFactory.getLogger(AppointmentService::class.java)
     }
@@ -40,11 +42,11 @@ class AppointmentService(
         }
     }
 
-    fun delete(id: Long, user: User) {
+    fun delete(id: Long) {
 
         // Verifica se o usuário tem a função ADMIN
-        if (user.roles.none { it.name != "ADMIN" }) {
-            log.warn("Usuário sem permissão tentou deletar uma consulta. userId={}, roles={}", user.id, user.roles)
+        if (role != "ADMIN" ) {
+            log.warn("Usuário sem permissão tentou deletar uma consulta.")
             throw IllegalArgumentException("Apenas usuários com a função ADMIN podem deletar consultas")
         }
 

@@ -1,11 +1,12 @@
 package br.pucpr.authserver.users
 
+import br.pucpr.authserver.reports.Report
 import br.pucpr.authserver.roles.Role
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 
 @Entity
-@Table(name="tbUser")
+@Table(name = "tbUser")
 class User(
     @Id @GeneratedValue
     var id: Long? = null,
@@ -14,17 +15,20 @@ class User(
     var name: String,
 
     @NotNull
-    @Column(unique=true)
+    @Column(unique = true)
     var email: String,
 
     @NotNull
     var password: String,
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(
         name = "UsersRole",
-        joinColumns = [JoinColumn(name="idUser")],
-        inverseJoinColumns = [JoinColumn(name="idRole")]
+        joinColumns = [JoinColumn(name = "idUser")],
+        inverseJoinColumns = [JoinColumn(name = "idRole")]
     )
-    val roles: MutableSet<Role> = mutableSetOf()
+    val roles: MutableSet<Role> = mutableSetOf(),
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    val reports: List<Report> = mutableListOf() // Lista de relatórios do usuário
 )

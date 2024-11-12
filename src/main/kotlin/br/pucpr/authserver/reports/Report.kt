@@ -1,5 +1,6 @@
 package br.pucpr.authserver.reports
 
+import br.pucpr.authserver.appointments.Appointment
 import br.pucpr.authserver.users.User
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
@@ -19,6 +20,9 @@ class Report(
     var date: LocalDate,
 
     @NotNull
+    var pacient: String, // Nome do paciente será o nome do usuário
+
+    @NotNull
     var symptoms: String,
 
     @NotNull
@@ -29,5 +33,10 @@ class Report(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false)
-    var pacient: SecurityProperties.User
+    var user: User? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointmentId", nullable = false)
+    var appointment: Appointment? = null // Relacionamento com a consulta
 )
+

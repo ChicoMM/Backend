@@ -2,6 +2,7 @@ package br.pucpr.authserver.reports.requests
 
 import br.pucpr.authserver.appointments.Appointment
 import br.pucpr.authserver.reports.Report
+import br.pucpr.authserver.users.User
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import java.time.LocalDate
@@ -14,9 +15,6 @@ data class CreateReportRequest(
     val date: LocalDate,
 
     @field:NotNull
-    val pacient: String,
-
-    @field:NotNull
     val symptoms: String,
 
     @field:NotNull
@@ -25,13 +23,19 @@ data class CreateReportRequest(
     @field:NotNull
     val recommendations: String,
 
-    ) {
-    fun toReport() = Report(
-        doctor = doctor!!,
-        date = date!!,
-        pacient = pacient!!,
-        symptoms = symptoms!!,
-        possibleIllness = possibleIllness!!,
-        recommendations = recommendations!!
-    )
+    @field:NotNull
+    val appointmentId: Long
+) {
+    fun toReport(user: User, appointment: Appointment): Report {
+        return Report(
+            doctor = doctor!!,
+            date = date!!,
+            pacient = user.name,
+            symptoms = symptoms!!,
+            possibleIllness = possibleIllness!!,
+            recommendations = recommendations!!,
+            user = user,
+            appointment = appointment
+        )
+    }
 }

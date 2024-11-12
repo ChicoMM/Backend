@@ -13,6 +13,7 @@ class UserService(
     val repository: UserRepository,
     val roleRepository: RoleRepository
 ) {
+    val role = "ADMIN"
     fun insert(user: User): User {
         if (user.id != null)
             throw IllegalArgumentException("Usuário já inserido!")
@@ -36,10 +37,10 @@ class UserService(
 
     fun findByIdOrNull(id: Long) = repository.findByIdOrNull(id)
 
-    fun delete(id: Long, user: User) {
+    fun delete(id: Long) {
 
-        if (user.roles.none { it.name == "ADMIN" }) {
-            log.warn("Usuário sem permissão tentou deletar uma consulta. userId={}, roles={}", user.id, user.roles)
+        if (role != "ADMIN" ) {
+            log.warn("Usuário sem permissão tentou deletar uma consulta.")
             throw IllegalArgumentException("Apenas usuários com a função ADMIN podem deletar consultas")
         }
 
