@@ -1,8 +1,14 @@
 package br.pucpr.authserver.reports
 
+import br.pucpr.authserver.appointments.Appointment
+import br.pucpr.authserver.errors.NotFoundException
 import br.pucpr.authserver.reports.Report
+import br.pucpr.authserver.users.SortDir
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Sort
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class ReportService (
@@ -15,6 +21,24 @@ class ReportService (
 
             val savedReport = repository.save(report)
             log.info("Report realizado. id={} doctor={} patient={}", savedReport.id, savedReport.doctor, savedReport.pacient)
+            return repository.save(report)
+        }
+        fun list(sortDir: SortDir) =
+            if (sortDir == SortDir.ASC)
+                repository.findAll()
+            else
+                repository.findAll(Sort.by("id").reverse())
+
+        fun delete(id: Long) = repository.deleteById(id)
+
+        fun update(id: Long, possibleIllness: String, recommendations: String): Report? {
+            val report = repository.findByIdOrNull(id)
+                ?: throw NotFoundException("Consulta ${id} não encontrada!")
+            if (report.possibleIllness != possibleIllness)
+                report.possibleIllness = possibleIllness
+            if (report.recommendations != recommendations)
+                report.recommendations = recommendations
+
             return repository.save(report)
         }
 
