@@ -12,18 +12,19 @@ import org.junit.jupiter.api.assertThrows
 class UserServiceTest {
     private val repositoryMock = mockk<UserRepository>()
     private val service = UserService(
-        repository = repositoryMock
+        repository = repositoryMock,
+        roleRepository = mockk()
     )
 
     @AfterEach
     fun cleanUp() {
-        checkUnnecessaryStub()
+        checkUnnecessaryStub(repositoryMock)
     }
 
     @Test
     fun `insert throws BadRequestException if the email exists`() {
-        val user = user(email="user@email.com")
-        every { repositoryMock.findByEmailOrNull(user.email) } returns user
+        val user = user(id = null, email = "user@email.com")
+        every { repositoryMock.findByEmail(user.email) } returns user
 
         assertThrows<BadRequestException> {
             service.insert(user)
@@ -31,19 +32,29 @@ class UserServiceTest {
     }
 
     @Test
-    fun `insert saves the data if the email does not exists`() {
-        val user = user(id=null)
-        val new_user = user(id=1)
-        every { repositoryMock.findByEmailOrNull(user.email) } returns null
-        every { repositoryMock.save(user) } returns new_user
-        service.insert(user) shouldBe new_user
+    fun `insert saves the data if the email does not exist`() {
+        val user = user(id = null, email = "user@email.com")
+        val newUser = User(
+            id = 1,
+            name = user.name,
+            email = user.email,
+            password = user.password,
+            roles = user.roles
+        )
+
+        every { repositoryMock.findByEmail(user.email) } returns null
+        every { repositoryMock.save(user) } returns newUser
+
+        service.insert(user) shouldBe newUser
     }
 
     @Test
     fun `insert throws IllegalArgumentException if the user has an id`() {
-        val user_with_id = user(id=1)
+        val userWithId = user(id = 1)
+
         assertThrows<IllegalArgumentException> {
-            service.insert(user_with_id)
+            service.insert(userWithId)
         }
     }
 }
+
