@@ -1,23 +1,19 @@
 package br.pucpr.authserver.reports
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import br.pucpr.authserver.users.User
+import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
+import org.springframework.boot.autoconfigure.security.SecurityProperties
 import java.time.LocalDate
 
 @Entity
-@Table(name="tbReports")
+@Table(name = "tbReports")
 class Report(
     @Id @GeneratedValue
     var id: Long? = null,
 
     @NotNull
     var doctor: String,
-
-    @NotNull
-    var pacient: String,
 
     @NotNull
     var date: LocalDate,
@@ -30,4 +26,8 @@ class Report(
 
     @NotNull
     var recommendations: String,
-    )
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    var pacient: SecurityProperties.User
+)

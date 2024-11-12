@@ -19,7 +19,4 @@ class Appointment(
 
     @NotNull
     var date: LocalDate,
-
-
-
 )

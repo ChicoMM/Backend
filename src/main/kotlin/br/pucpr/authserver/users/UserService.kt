@@ -36,14 +36,21 @@ class UserService(
 
     fun findByIdOrNull(id: Long) = repository.findByIdOrNull(id)
 
-    fun delete(id: Long) {
+    fun delete(id: Long, user: User) {
+
+        if (user.roles.none { it.name == "ADMIN" }) {
+            log.warn("Usuário sem permissão tentou deletar uma consulta. userId={}, roles={}", user.id, user.roles)
+            throw IllegalArgumentException("Apenas usuários com a função ADMIN podem deletar consultas")
+        }
+
         if (repository.existsById(id)) {
             repository.deleteById(id)
-            log.info("Usuário deletado. id={}", id)
+            log.info("Consulta deletada com sucesso. id={}", id)
         } else {
-            log.warn("Não foi possível deletar devido ao ID inválido. id={}", id)
+            log.warn("Tentativa de exclusão falhou, consulta não encontrada. id={}", id)
         }
     }
+
     fun update(id: Long, name: String): User? {
         val user = repository.findByIdOrNull(id)
             ?: throw NotFoundException("Usuário ${id} não encontrado!")
